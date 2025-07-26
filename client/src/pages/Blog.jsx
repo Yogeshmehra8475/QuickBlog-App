@@ -11,9 +11,9 @@ const Blog = () => {
 
   const [data, setData] = useState(null);
   const [comments, setComments] = useState([]);
-  
-  const [name, setName] = useState('');
-  const [content, setContent] = useState('');
+
+  const [name, setName] = useState("");
+  const [content, setContent] = useState("");
 
   const fetchBlogData = async () => {
     const data = blog_data.find((item) => item._id === id);
@@ -23,9 +23,9 @@ const Blog = () => {
   const fetchComments = async () => {
     setComments(comments_data);
   };
-  const addComment = async (e)=>{
+  const addComment = async (e) => {
     e.preventDefault();
-  }
+  };
 
   useEffect(() => {
     fetchBlogData();
@@ -42,7 +42,7 @@ const Blog = () => {
       <Navbar />
 
       <div className="text-center mt-20 text-gray-600">
-        <p className="text-indigo-600 py-4 font-medium">
+        <p className="text-primary py-4 font-medium">
           Published on {Moment(data.createdAt).format("MMMM Do YYYY")}
         </p>
         <h1 className="text-2xl sm:text-5xl font-semibold max-w-2xl mx-auto text-gray-800">
@@ -91,14 +91,18 @@ const Blog = () => {
             onSubmit={addComment}
             className="flex flex-col items-start gap-4 max-w-lg"
           >
-            <input onChange={(e)=> setName(e.target.value)} value={name}
+            <input
+              onChange={(e) => setName(e.target.value)}
+              value={name}
               type="text"
               placeholder="Name"
               require
               className="w-full p-2 border border-gray-300 rounded outline-none"
             />
 
-            <textarea onChange={(e)=> setContent(e.target.value)} value={content}
+            <textarea
+              onChange={(e) => setContent(e.target.value)}
+              value={content}
               placeholder="Comment"
               className="w-full p-2 border border-gray-300 rounded outline-none h-48"
             ></textarea>
@@ -113,19 +117,21 @@ const Blog = () => {
         </div>
         {/* Share Buttons */}
         <div className="my-24 max-w-3xl mx-auto">
-          <p className="font-semibold my-4">Share this article on social media</p>  
+          <p className="font-semibold my-4">
+            Share this article on social media
+          </p>
           <div className="flex">
-            <img src={assets.facebook_icon} width={50} alt="Facebook"/>
-            <img src={assets.twitter_icon} width={50} alt="Twitter"/>
-            <img src={assets.googleplus_icon} width={50} alt="GooglePlus"/>
+            <img src={assets.facebook_icon} width={50} alt="Facebook" />
+            <img src={assets.twitter_icon} width={50} alt="Twitter" />
+            <img src={assets.googleplus_icon} width={50} alt="GooglePlus" />
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   ) : (
     <div>
-      <Loader/>
+      <Loader />
     </div>
   );
 };
