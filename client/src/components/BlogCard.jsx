@@ -8,7 +8,7 @@ const BlogCard = ({ blog }) => {
   return (
     <div onClick={() => navigate(`/blog/${_id}`)} className="w-full rounded-lg overflow-hidden shadow hover:scale-102 hover:shadow-violet-300 duration-300 cursor-pointer">
       <img src={image} alt="" className="aspect-video" />
-      <span className="ml-5 mt-4 px-3 py-1 inline-block bg-violet-200 rounded-full text-indigo-600 text-xs">
+      <span className="ml-5 mt-4 px-3 py-1 inline-block bg-violet-200 rounded-full text-primary text-xs">
         {category}
       </span>
       <div className="p-5">
