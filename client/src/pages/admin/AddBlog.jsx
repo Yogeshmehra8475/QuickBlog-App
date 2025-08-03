@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { assets } from "../../assets/assets";
+import { assets, blogCategories } from "../../assets/assets";
 import Quill from "quill";
 
 const AddBlog = () => {
@@ -79,6 +79,18 @@ const AddBlog = () => {
             Generate with AI
           </button>
         </div>
+        <p className="mt-4">Blog category</p>
+        <select onChange={e => setCategory(e.target.value)} name="category" className="mt-2 px-3 py-2 border text-gray-500 border-gray-300 outline-none rounded">
+          <option value="">Select category</option>
+          {blogCategories.map((item, index)=>{
+            return <option key={index} value={item}>{item}</option>
+          })}
+        </select>
+        <div className="flex gap-2 mt-4">
+          <p>Publish Now</p>
+          <input type="checkbox" checked={isPublished} className="cursor-pointer scale-125" onChange={e => setIsPublished(e.target.checked)}/>
+        </div>
+        <button type="submit"> Add Blog</button>
       </div>
     </form>
   );
