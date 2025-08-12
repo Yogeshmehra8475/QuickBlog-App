@@ -1,13 +1,9 @@
+// middleware/multer.js - UPDATED
 import multer from "multer";
-// Multer setup for file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // The temporary destination folder for uploaded files
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname); // Unique file name
-  }
-});
+
+// Use memoryStorage to keep the file as a buffer in memory
+const storage = multer.memoryStorage();
 
 const upload = multer({ storage: storage });
+
 export default upload;
