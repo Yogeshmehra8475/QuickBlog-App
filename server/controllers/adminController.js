@@ -1,8 +1,6 @@
 import jwt from "jsonwebtoken"
 import Blog from "../models/Blog.js";
 import Comment from "../models/Comment.js";
-import { Component } from "react";
-
 export const adminLogin = async (req, res) => {
     try {
         const {email, password} = req.body;
@@ -38,7 +36,7 @@ export const getDashboard = async (req, res) => {
     try {
         const recentBlogs = await Blog.find({}).sort({createdAt: -1}).limit(5);
         const blogs = await Blog.countDocuments();
-        const comments = await Component.countDocuments()
+        const comments = await Comment.countDocuments()
         const drafts = await Blog.countDocuments({isPublished: false})
 
         const dashboardData = {
@@ -64,7 +62,7 @@ export const approveCommentById = async (req, res) => {
     try {
         const {id} = req.body;
         await Comment.findByIdAndUpdate(id, {isApproved: true});
-        res.json({success: true, message: "Comment deleted successfully"})
+        res.json({success: true, message: "Comment approved successfully"})
     } catch (error) {
         res.json({success: false, message: error.message})
     }
