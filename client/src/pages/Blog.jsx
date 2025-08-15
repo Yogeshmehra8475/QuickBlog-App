@@ -5,9 +5,12 @@ import Navbar from "../components/Navbar";
 import Moment from "moment";
 import Footer from "../components/Footer";
 import Loader from "../components/Loader";
+import { useAppContext } from "../context/AppContext";
 
 const Blog = () => {
   const { id } = useParams();
+
+  const {axios} = useAppContext()
 
   const [data, setData] = useState(null);
   const [comments, setComments] = useState([]);
