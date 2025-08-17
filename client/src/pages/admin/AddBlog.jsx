@@ -5,7 +5,7 @@ import { useAppContext } from "../../context/AppContext";
 
 const AddBlog = () => {
   const { axios } = useAppContext();
-  const [isAdding, setisAdding] = useState(true);
+  const [isAdding, setIsAdding] = useState(false);
 
   const editorRef = useRef(null);
   const quillRef = useRef(null);
@@ -19,6 +19,12 @@ const AddBlog = () => {
   const generateContent = async () => {};
 
   const onSubmitHandler = async (e) => {
+    try {
+      e.preventDefault();
+      setIsAdding
+    } catch (error) {
+      
+    }
     e.preventDefault();
   };
 
