@@ -43,6 +43,8 @@ const AddBlog = () => {
       }
     } catch (error) {
       toast.error(data.message)
+    }finally {
+      setIsAdding(false)
     }
     e.preventDefault();
   };
