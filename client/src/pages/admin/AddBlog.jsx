@@ -21,9 +21,28 @@ const AddBlog = () => {
   const onSubmitHandler = async (e) => {
     try {
       e.preventDefault();
-      setIsAdding
+      setIsAdding(true)
+
+      const blog = {
+        title, subtitle, description: quillRef.current.root.innerHTML,
+        category, isPublished
+      }
+      const formData = new FormData();
+      formData.append("blog", JSPN.stringify(blog))
+      formData.append("image", image)
+      const {data} = await axios.post('/api/blog/add', formData);
+
+      if(data.success){
+        toast.success(data.message);
+        setImage(false)
+        setTitle('')
+        quillRef.current.root.innerHTML = ''
+        setCategory('Startup')
+      } else {
+        toast.error(data.message)
+      }
     } catch (error) {
-      
+      toast.error(data.message)
     }
     e.preventDefault();
   };
