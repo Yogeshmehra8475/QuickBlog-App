@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { assets, blogCategories } from "../../assets/assets";
 import Quill from "quill";
 import { useAppContext } from "../../context/AppContext";
+import toast from "react-hot-toast";
 
 const AddBlog = () => {
   const { axios } = useAppContext();
@@ -21,32 +22,34 @@ const AddBlog = () => {
   const onSubmitHandler = async (e) => {
     try {
       e.preventDefault();
-      setIsAdding(true)
+      setIsAdding(true);
 
       const blog = {
-        title, subtitle, description: quillRef.current.root.innerHTML,
-        category, isPublished
-      }
+        title,
+        subTitle,
+        description: quillRef.current.root.innerHTML,
+        category,
+        isPublished,
+      };
       const formData = new FormData();
-      formData.append("blog", JSPN.stringify(blog))
-      formData.append("image", image)
-      const {data} = await axios.post('/api/blog/add', formData);
+      formData.append("blog", JSON.stringify(blog));
+      formData.append("image", image);
+      const { data } = await axios.post("/api/blog/add", formData);
 
-      if(data.success){
+      if (data.success) {
         toast.success(data.message);
-        setImage(false)
-        setTitle('')
-        quillRef.current.root.innerHTML = ''
-        setCategory('Startup')
+        setImage(false);
+        setTitle("");
+        quillRef.current.root.innerHTML = "";
+        setCategory("Startup");
       } else {
-        toast.error(data.message)
+        toast.error(data.message);
       }
     } catch (error) {
-      toast.error(data.message)
-    }finally {
-      setIsAdding(false)
+      toast.error(error.message);
+    } finally {
+      setIsAdding(false);
     }
-    e.preventDefault();
   };
 
   useEffect(() => {
@@ -70,7 +73,7 @@ const AddBlog = () => {
             className="mt-2 h-16 rounded cursor-pointner"
           />
           <input
-            onChange={() => setImage(e.target.files[0])}
+            onChange={(e) => setImage(e.target.files[0])}
             type="file"
             id="image"
             hidden
