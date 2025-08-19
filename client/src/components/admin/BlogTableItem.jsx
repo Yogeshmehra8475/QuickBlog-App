@@ -24,7 +24,20 @@ const BlogTableItem = ({blog, fetchBlogs, index}) => {
         } catch (error) {
           toast.error(error.message)
         }
-    
+    }
+
+    const togglePublish = async () => {
+      try {
+        const { data } = await axios.post('/api/blog/toggle-publish', {id: blog._id})
+         if(data.success){  
+          toast.success(data.message)
+          await fetchBlogs()
+           } else{
+            toast.error(data.message)
+           }
+      } catch (error) {
+        toast.error(error.message)
+      }
     }
 
     return (
@@ -37,8 +50,8 @@ const BlogTableItem = ({blog, fetchBlogs, index}) => {
         >{blog.isPublished ? "Published" : "Unpublished" }</p>
       </td>
       <td className='px-2 py-4 flex text-xs gap-3'>
-        <button className='border px-2 py-0.5 mt-1 rounded cursor-pointer'>{blog.isPublished ? "Unublished" : "Published" }</button>
-        <img src={assets.cross_icon} alt='' className='w-8 hover:scale-110 transition-all cursor-pointer'/>
+        <button onClick={togglePublish} className='border px-2 py-0.5 mt-1 rounded cursor-pointer'>{blog.isPublished ? "Unublished" : "Published" }</button>
+        <img onClick={deleteBlog} src={assets.cross_icon} alt='' className='w-8 hover:scale-110 transition-all cursor-pointer'/>
       </td>
     </tr>
   )
