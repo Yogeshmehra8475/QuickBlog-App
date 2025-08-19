@@ -15,10 +15,10 @@ const ListBlog = () => {
       if(data.success) {
         setBlogs(data.blogs)
       }else{
-        toast.error()
+        toast.error(data.message)
       }
     } catch (error) {
-      
+       toast.error(error.message)
     }
   }
   useEffect(()=>{
