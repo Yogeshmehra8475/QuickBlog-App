@@ -7,8 +7,6 @@ import blogRouter from './routes/blogRoutes.js';
 
 const app = express();
 
-await connectDB()
-
 //Middlewares
 
 app.use(cors())
@@ -21,8 +19,21 @@ app.use('/api/blog', blogRouter)
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, ()=>{
-    console.log("Server is running on the port " + PORT)
-})
+const startServer = async () => {
+    try {
+        await connectDB();
+        // listen to local development
+        if (process.env.NODE_ENV !== 'production') {
+            app.listen(PORT, () => {
+                console.log(`Server listening on port ${PORT}`);
+            })
+        }
+    } catch (error) {
+        console.log("Failed to start Server:" + error.message);
+        process.exit(1);
+    }
+}
+startServer();
+
 
 export default app;
